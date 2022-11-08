@@ -1,3 +1,6 @@
+<?php
+require_once 'src/php/classes/Bdd.php';
+?>
 <!doctype html>
 <html lang="fr">
     <head>
@@ -38,6 +41,8 @@
                 </form>
             </section>
         </main>
+
+        <?php $bdd = new Bdd(); ?>
 
         <footer>
             <p class="copyrights">©2022 ALIPTIC - Design: Nicolas Vauché</p>
