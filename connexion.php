@@ -21,7 +21,7 @@
         <main>
             <section>
                 <h1>Connexion</h1>
-                <form action="src/php/forms/form-login.php" method="post">
+                <form action="src/php/forms/loginform.php" method="post">
                     <div>
                         <label for="userEmail" class="required">Adresse e-mail</label>
                         <input type="email" name="email" id="userEmail" required />
