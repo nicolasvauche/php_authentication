@@ -40,9 +40,12 @@ require_once 'src/php/classes/Bdd.php';
                     </div>
                 </form>
             </section>
-        </main>
 
-        <?php $bdd = new Bdd(); ?>
+            <section>
+                <h2>Connexion BDD OK :</h2>
+                <?php $bdd = new Bdd(); ?>
+            </section>
+        </main>
 
         <footer>
             <p class="copyrights">©2022 ALIPTIC - Design: Nicolas Vauché</p>
