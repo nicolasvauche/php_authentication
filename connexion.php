@@ -1,6 +1,3 @@
-<?php
-require_once 'src/php/classes/Bdd.php';
-?>
 <!doctype html>
 <html lang="fr">
     <head>
@@ -39,11 +36,6 @@ require_once 'src/php/classes/Bdd.php';
                         <button type="submit">Je me connecte &raquo;</button>
                     </div>
                 </form>
-            </section>
-
-            <section>
-                <h2>Connexion BDD OK :</h2>
-                <?php $bdd = new Bdd(); ?>
             </section>
         </main>
 
