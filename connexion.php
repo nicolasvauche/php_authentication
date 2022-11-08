@@ -1,3 +1,10 @@
+<?php
+require_once './src/php/helpers/auth.php';
+
+if (getAuthenticatedUserId()) {
+    Header('Location: ./');
+}
+?>
 <!doctype html>
 <html lang="fr">
     <head>
@@ -14,7 +21,6 @@
             <nav>
                 <a href="./">Accueil</a>
                 <a href="./connexion.php" class="active">Connexion</a>
-                <a href="./deconnexion.php" onclick="return window.confirm('Êtes-vous sûr(e) ?')">Déconnexion</a>
             </nav>
         </header>
 

@@ -1,3 +1,6 @@
+<?php
+require_once './src/php/helpers/auth.php';
+?>
 <!doctype html>
 <html lang="fr">
     <head>
@@ -13,14 +16,25 @@
         <header>
             <nav>
                 <a href="./" class="active">Accueil</a>
-                <a href="./connexion.php">Connexion</a>
-                <a href="./deconnexion.php" onclick="return window.confirm('Êtes-vous sûr(e) ?')">Déconnexion</a>
+
+                <?php if (!getAuthenticatedUserId()): ?>
+                    <a href="./connexion.php">Connexion</a>
+                <?php else: ?>
+                    <a href="src/php/forms/deconnexion.php" onclick="return window.confirm('Êtes-vous sûr(e) ?')">Déconnexion</a>
+                <?php endif; ?>
+
             </nav>
         </header>
 
         <main>
             <section>
-                <h1>Accueil</h1>
+                <?php if (getAuthenticatedUserPseudo()): ?>
+                    <h1>Bonjour, <?php echo getAuthenticatedUserPseudo(); ?></h1>
+                    <p>Tu as le rôle <?php echo getAuthenticatedUserRole(); ?></p>
+                <?php else: ?>
+                    <h1>Accueil</h1>
+                <?php endif ?>
+
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam consectetur cupiditate debitis dolore eaque eos illum ipsa iste labore, natus nisi odio omnis perspiciatis quas repellat repudiandae tenetur unde voluptatum.</p>
             </section>
         </main>
