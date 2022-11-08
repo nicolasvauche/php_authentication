@@ -14,7 +14,7 @@
             <nav>
                 <a href="./" class="active">Accueil</a>
                 <a href="./connexion.php">Connexion</a>
-                <a href="./deconnexion.php" onclick="return window.confirm('Êtes-vous sûr(e) ?')">Déconnexion</a>
+                <a href="src/php/forms/deconnexion.php" onclick="return window.confirm('Êtes-vous sûr(e) ?')">Déconnexion</a>
             </nav>
         </header>
 

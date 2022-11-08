@@ -14,7 +14,6 @@
             <nav>
                 <a href="./">Accueil</a>
                 <a href="./connexion.php" class="active">Connexion</a>
-                <a href="./deconnexion.php" onclick="return window.confirm('Êtes-vous sûr(e) ?')">Déconnexion</a>
             </nav>
         </header>
 

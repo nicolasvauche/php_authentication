@@ -18,15 +18,24 @@ class Authentication extends Bdd
             $stmt->bindParam('password', $userData['password']);
             $stmt->execute();
 
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            $res = $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $exception) {
             var_dump($exception);
             exit;
+        }
+
+        if ($res) {
+            setcookie('userid', $res['id'], time() + (86400 * 30), '/');
+            Header('Location: ../../../');
+        } else {
+            Header('Location: ../../../connexion.php?error=true');
         }
     }
 
     public function logout()
     {
-
+        unset($_COOKIE['userid']);
+        setcookie('userid', null, -1, '/');
+        Header('Location: ../../../');
     }
 }
