@@ -1,6 +1,4 @@
 <?php
-require_once '../../../config/env.php';
-
 class Bdd
 {
     private $connection;
@@ -10,8 +8,10 @@ class Bdd
         return $this->connection;
     }
 
-    public function __construct()
+    public function __construct($envPath)
     {
+        require_once $envPath;
+
         $dsn = 'mysql:host=' . getenv('DB_HOST') . ';dbname=' . getenv('DB_NAME') . ';charset=UTF8';
 
         try {
@@ -21,6 +21,6 @@ class Bdd
             exit;
         }
 
-        echo "Connexion BDD OK";
+        //echo "Connexion BDD OK";
     }
 }

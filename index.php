@@ -1,5 +1,6 @@
 <?php
 require_once './src/php/helpers/auth.php';
+require_once './src/php/classes/Content.php';
 ?>
 <!doctype html>
 <html lang="fr">
@@ -22,7 +23,6 @@ require_once './src/php/helpers/auth.php';
                 <?php else: ?>
                     <a href="src/php/forms/deconnexion.php" onclick="return window.confirm('Êtes-vous sûr(e) ?')">Déconnexion</a>
                 <?php endif; ?>
-
             </nav>
         </header>
 
@@ -48,19 +48,40 @@ require_once './src/php/helpers/auth.php';
             </section>
 
             <?php if (getAuthenticatedUserId()): ?>
-                <section>
-                    <h2>Le contenu</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam consectetur cupiditate debitis dolore eaque eos illum ipsa iste labore, natus nisi odio omnis perspiciatis quas repellat repudiandae tenetur unde voluptatum.</p>
-                    <p>
-                        <?php if (isAdmin()): ?>
-                            <a href="modifier.php">
-                                <strong>Tu peux modifier le contenu</strong>
-                            </a>
-                        <?php else: ?>
-                            <small>(Tu ne peux pas modifier le contenu)</small>
-                        <?php endif; ?>
-                    </p>
-                </section>
+                <?php $contentModel = new Content('./src/php/classes/Bdd.php'); ?>
+                <?php $content = $contentModel->getContent(); ?>
+                <?php if ($content): ?>
+                    <section>
+                        <h2><?php echo $content['title']; ?></h2>
+                        <p><?php echo $content['text']; ?></p>
+                        <p>
+                            <?php if (isAdmin()): ?>
+                                <a href="contenu.php">
+                                    <strong>Tu peux modifier le contenu</strong>
+                                </a>
+                                <br />
+                                <a href="contenu.php?id=<?php echo $content['id']; ?>" onclick="return window.confirm('Es-tu sûr ?')">
+                                    <strong>Tu peux supprimer le contenu</strong>
+                                </a>
+                            <?php else: ?>
+                                <small>(Tu ne peux pas modifier le contenu)</small>
+                            <?php endif; ?>
+                        </p>
+                    </section>
+                <?php else: ?>
+                    <section>
+                        <h2>Aucun contenu</h2>
+                        <p>
+                            <?php if (isAdmin()): ?>
+                                <a href="contenu.php">
+                                    <strong>Tu peux ajouter du contenu</strong>
+                                </a>
+                            <?php else: ?>
+                                <small>(Tu ne peux pas gérer le contenu)</small>
+                            <?php endif; ?>
+                        </p>
+                    </section>
+                <?php endif; ?>
             <?php endif ?>
         </main>
 

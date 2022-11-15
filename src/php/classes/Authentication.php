@@ -6,7 +6,7 @@ class Authentication extends Bdd
 {
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct('../../../config/env.php');
     }
 
     public function login($userData)

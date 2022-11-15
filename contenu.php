@@ -1,5 +1,28 @@
 <?php
+
 require_once './src/php/helpers/auth.php';
+
+if (!isAdmin()) {
+    Header('Location: ./?errors=bien tenté gros malin');
+}
+
+require_once './src/php/classes/Content.php';
+
+$contentModel = new Content('./src/php/classes/Bdd.php');
+
+$id = $_GET['id'] ?? null;
+
+if ($id) {
+    $deletedContent = $contentModel->deleteContent($id);
+
+    if ($deletedContent) {
+        Header('Location: ./');
+    } else {
+        Header('Location: ./?errors=true');
+    }
+}
+
+$content = $contentModel->getContent();
 ?>
 <!doctype html>
 <html lang="fr">
@@ -8,7 +31,7 @@ require_once './src/php/helpers/auth.php';
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        <title>Modifier le contenu - Authentification avec PHP</title>
+        <title><?php echo $content ? 'Modifier le' : 'Ajouter du'; ?> contenu - Authentification avec PHP</title>
 
         <link rel="stylesheet" href="assets/css/styles.min.css">
     </head>
@@ -28,24 +51,23 @@ require_once './src/php/helpers/auth.php';
 
         <main>
             <section>
-                <h1>Modifier le contenu</h1>
+                <h1><?php echo $content ? 'Modifier le' : 'Ajouter du'; ?> contenu</h1>
             </section>
 
             <section>
-                <form action="" method="post">
+                <form action="<?php echo $content ? './editform.php' : './addform.php'; ?>" method="post">
                     <div>
                         <label for="contentTitle" class="required">Titre du contenu</label>
-                        <input type="text" name="title" id="contentTitle" value="Le contenu" required />
+                        <input type="text" name="title" id="contentTitle" value="<?php echo $content['title'] ?? ''; ?>" required />
                         <p class="error">Titre invalide</p>
                     </div>
                     <div>
                         <label for="contentText" class="required">Texte du contenu</label>
-                        <textarea name="text" id="contentText" rows="4" required>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam consectetur cupiditate debitis dolore eaque eos illum ipsa iste labore, natus nisi odio omnis perspiciatis quas repellat repudiandae tenetur unde voluptatum.
-                        </textarea>
+                        <textarea name="text" id="contentText" rows="4" required><?php echo $content['text'] ?? ''; ?></textarea>
                         <p class="error">Texte invalide</p>
                     </div>
                     <div>
+                        <input type="hidden" name="id" value="<?php echo $content['id'] ?? ''; ?>" />
                         <button type="submit">J'enregistre &raquo;</button>
                     </div>
                 </form>
