@@ -53,7 +53,7 @@ require_once './src/php/helpers/auth.php';
         </main>
 
         <footer>
-            <p class="copyrights">©2022 ALIPTIC - Design: Nicolas Vauché</p>
+            <p class="copyrights">©2022 ALIPTIC - Designed with ❤️ by Nicolas Vauché</p>
         </footer>
     </body>
 </html>
