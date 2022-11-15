@@ -3,11 +3,7 @@ session_start();
 
 function getAuthenticatedUserId()
 {
-    if (isset($_SESSION['user'])) {
-        return $_SESSION['user'];
-    } else {
-        return false;
-    }
+    return isset($_SESSION['user']) ?? false;
 }
 
 function getAuthenticatedUserPseudo()
@@ -31,7 +27,11 @@ function getAuthenticatedUserEmail()
 function getAuthenticatedUserRole()
 {
     if (isset($_SESSION['user'])) {
-        return $_SESSION['user']['role'];
+        return match ($_SESSION['user']['role']) {
+            'ROLE_ADMIN' => 'administrateur',
+            'ROLE_USER' => 'utilisateur',
+            default => 'inconnu',
+        };
     } else {
         return false;
     }
@@ -39,11 +39,5 @@ function getAuthenticatedUserRole()
 
 function isAdmin()
 {
-    if (isset($_SESSION['user'])) {
-        if ($_SESSION['user']['role'] === 'ROLE_ADMIN') {
-            return true;
-        }
-    }
-
-    return false;
+    return $_SESSION['user']['role'] === 'ROLE_ADMIN';
 }

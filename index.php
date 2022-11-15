@@ -29,14 +29,39 @@ require_once './src/php/helpers/auth.php';
         <main>
             <section>
                 <?php if (getAuthenticatedUserPseudo()): ?>
-                    <h1>Bonjour, <?php echo getAuthenticatedUserPseudo(); ?></h1>
-                    <p>Tu as le rôle <?php echo getAuthenticatedUserRole(); ?></p>
+                    <h1>Bonjour, <?php echo ucwords(getAuthenticatedUserPseudo()); ?></h1>
+                    <p>
+                        Tu es connecté(e) avec le compte
+                        <strong><?php echo getAuthenticatedUserEmail(); ?></strong>
+                        et tu as le rôle
+                        <strong><?php echo getAuthenticatedUserRole(); ?></strong>
+                    </p>
                 <?php else: ?>
                     <h1>Accueil</h1>
+                    <p>Vous n'êtes pas connecté(e), vous n'avez pas accès au contenu du site.</p>
+                    <p>
+                        <a href="./connexion.php">
+                            <strong>Je me connecte</strong>
+                        </a>
+                    </p>
                 <?php endif ?>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam consectetur cupiditate debitis dolore eaque eos illum ipsa iste labore, natus nisi odio omnis perspiciatis quas repellat repudiandae tenetur unde voluptatum.</p>
             </section>
+
+            <?php if (getAuthenticatedUserId()): ?>
+                <section>
+                    <h2>Le contenu</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam consectetur cupiditate debitis dolore eaque eos illum ipsa iste labore, natus nisi odio omnis perspiciatis quas repellat repudiandae tenetur unde voluptatum.</p>
+                    <p>
+                        <?php if (isAdmin()): ?>
+                            <a href="modifier.php">
+                                <strong>Tu peux modifier le contenu</strong>
+                            </a>
+                        <?php else: ?>
+                            <small>(Tu ne peux pas modifier le contenu)</small>
+                        <?php endif; ?>
+                    </p>
+                </section>
+            <?php endif ?>
         </main>
 
         <footer>
